@@ -26,6 +26,8 @@ function updateSelectDifficulty() {
     xhttp.send();
 }
 
+let holesCount = 0;
+
 function newGame() {
     let course = $("#courseSelect").val();
     let difficulty = $("#difficulty").val();
@@ -35,6 +37,14 @@ function newGame() {
         if (this.readyState == 4 && this.status == 200) {
             let data = JSON.parse(xhttp.responseText);
             console.log(data);
+            $(".names").append(`<div class='name' contenteditable='true'>Player</div>`);
+            $(".bRight").append(`<div class='holes' id='holes${holesCount}'></div>`);
+            for (let i = 0; i < data.data.holeCount; i++) {
+                $("#holes" + holesCount).append(`<div id='hole${[i+1]}' class='hole'>
+                <div contenteditable='true'>0</div>
+                </div>`);
+            }
+            holesCount ++;
         }
     };
     xhttp.open("GET", `https://golf-courses-api.herokuapp.com/courses/${course}`, true);
