@@ -22,15 +22,65 @@ html body {
     display: flex;
 }
 
-.bRight {}
-
-.names {}
-
 .name {
     width: 100px;
     height: 52px;
     margin: 10;
     display: flex;
+    align-items: center;
+}
+
+.bRight {}
+
+.infoSpot {
+    margin: 10px;
+}
+
+.holeNumberRow {
+    display: flex;
+}
+
+.holeNumber {
+    width: 51px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.handicapRow {
+    display: flex;
+}
+
+.handicap {
+    width: 51px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.yardRow {
+    display: flex;
+}
+
+.yard {
+    width: 51px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.parRow {
+    display: flex;
+}
+
+.par {
+    width: 51px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 

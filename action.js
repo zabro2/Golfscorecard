@@ -26,25 +26,50 @@ function updateSelectDifficulty() {
     xhttp.send();
 }
 
-let holesCount = 0;
-
 function newGame() {
-    let course = $("#courseSelect").val();
+    let courseVal = $("#courseSelect").val();
     let difficulty = $("#difficulty").val();
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            let data = JSON.parse(xhttp.responseText);
+            $(".infoSpot").html(`<div class='holeNumberRow'></div>
+            <div class='handicapRow'></div>
+            <div class='yardRow'></div>
+            <div class='parRow'></div>`);
+            $('.infoSpotNamesHolder').html(`<div class='infoSpotNames' id='holeNumberName'></div>`);
+            for (let i = 0; i < data.data.holeCount; i++) {
+                $(".holeNumberRow").append(`<div class='holeNumber' id='holeNumber${i}'>${i+1}</div>`);
+                $(".handicapRow").append(`<div class='handicap' id='handicap${i}'>${data.data.holes[i].teeBoxes[difficulty-1].hcp}</div>`);
+                $(".yardRow").append(`<div class='yard' id='yard${i}'>${data.data.holes[i].teeBoxes[difficulty-1].yards}</div>`);
+                $(".parRow").append(`<div class='par' id='par${i}'>${data.data.holes[i].teeBoxes[difficulty-1].par}</div>`);
+            }
+        }
+    };
+    xhttp.open("GET", `https://golf-courses-api.herokuapp.com/courses/${courseVal}`, true);
+    xhttp.send();
+}
+
+let playerCount = 0;
+
+function newPlayer() {
+    let course = $("#courseSelect").val();
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             let data = JSON.parse(xhttp.responseText);
             console.log(data);
-            $(".names").append(`<div class='name' contenteditable='true'>Player</div>`);
-            $(".bRight").append(`<div class='holes' id='holes${holesCount}'></div>`);
-            for (let i = 0; i < data.data.holeCount; i++) {
-                $("#holes" + holesCount).append(`<div id='hole${[i+1]}' class='hole'>
+            if (playerCount < 4) {
+                $(".names").append(`<div class='name' id='${playerCount}' contenteditable='true'>Player</div>`);
+                $(".bRight").append(`<div class='holes' id='holes${playerCount}'></div>`);
+                for (let i = 0; i < data.data.holeCount; i++) {
+                    $("#holes" + playerCount).append(`<div id='hole${[i]}' class='hole'>
                 <div contenteditable='true'>0</div>
                 </div>`);
+                }
+                playerCount++;
             }
-            holesCount ++;
         }
     };
     xhttp.open("GET", `https://golf-courses-api.herokuapp.com/courses/${course}`, true);
