@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel='stylesheet' href='style.css'>
     <script defer src="https://code.jquery.com/jquery-3.3.1.js"
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
@@ -15,11 +16,13 @@
     <div class='top'>
         <div class='nav'>
             <select id='courseSelect' onchange="updateSelectDifficulty()">
-                <option></option>
-                <!--spacer-->
+                    <option value="" disabled selected>Course</option>
             </select>
-            <select id='difficulty'></select>
+            <select id='difficulty'>
+            <option value="" disabled selected>Difficulty</option>
+            </select>
             <button id='newGamebtn' onclick='newGame()'>New Game</button>
+            <input id='playerNameInput' placeholder='Player Name' onkeypress="checkNameKey(event)">
             <button id='newPlayerBtn' onclick='newPlayer()'>New Player</button>
         </div>
     </div>
@@ -31,6 +34,7 @@
         <div class='bRight'>
             <div class='infoSpot'></div>
         </div>
+        <div class='totalsCol'></div>
     </div>
 </body>
 

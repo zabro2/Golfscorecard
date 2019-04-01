@@ -1,8 +1,9 @@
-html body {
+html, body {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .top {
@@ -12,9 +13,24 @@ html body {
 }
 
 .nav {
-    width: 40%;
+    width: 50%;
     display: flex;
     justify-content: space-between;
+}
+
+#courseSelect, #difficulty{
+    font-family: 'Open Sans', sans-serif;
+}
+
+button {
+    font-family: 'Open Sans', sans-serif;
+}
+
+#playerNameInput {
+    border-radius: 2px;
+    width: 100px;
+    border: 1px solid #a7a7a7;
+    text-decoration: none;
 }
 
 .bottom {
@@ -22,8 +38,19 @@ html body {
     display: flex;
 }
 
+.infoSpotNamesHolder {
+    height: 120px;
+    width: 120;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
 .infoSpotNames {
-    margin: 10px;
+    display: flex;
+    align-items: center;
+    height: 25px;
+    margin: 0 0 0 10px;
 }
 
 .name {
@@ -34,6 +61,8 @@ html body {
     align-items: center;
 }
 
+.
+
 .bRight {}
 
 .infoSpot {
@@ -41,7 +70,11 @@ html body {
 }
 
 .holeNumberRow {
+    margin-bottom: 10px;
     display: flex;
+    font-size: 1.2em;
+    font-weight: bolder;
+    border-bottom: solid 1px black;
 }
 
 .holeNumber {
@@ -105,6 +138,20 @@ html body {
     align-items: center;
 }
 
+.holeScore {
+    padding: 0;
+    margin-left: 12px;
+    width: 38px;
+    height: 25px;
+    border: none;
+    text-align: center;
+    font-size: 1em;
+}
+
 .hole:last-child {
     border-right: 1px solid black;
+}
+
+.totalsCol {
+    height: 379;
 }
