@@ -22,6 +22,10 @@ html body {
     display: flex;
 }
 
+.infoSpotNames {
+    margin: 10px;
+}
+
 .name {
     width: 100px;
     height: 52px;
@@ -48,11 +52,11 @@ html body {
     align-items: center;
 }
 
-.handicapRow {
+.yardRow {
     display: flex;
 }
 
-.handicap {
+.yard {
     width: 51px;
     height: 25px;
     display: flex;
@@ -60,11 +64,11 @@ html body {
     align-items: center;
 }
 
-.yardRow {
+.handicapRow {
     display: flex;
 }
 
-.yard {
+.handicap {
     width: 51px;
     height: 25px;
     display: flex;

@@ -35,14 +35,17 @@ function newGame() {
             let data = JSON.parse(xhttp.responseText);
             $(".infoSpot").html(`<div class='holeNumberRow'></div>
             <div class='handicapRow'></div>
-            <div class='yardRow'></div>
-            <div class='parRow'></div>`);
-            $('.infoSpotNamesHolder').html(`<div class='infoSpotNames' id='holeNumberName'></div>`);
+            <div class='parRow'></div>
+            <div class='yardRow'></div>`);
+            $('.infoSpotNamesHolder').html(`<div class='infoSpotNames' id='holeNumberName'>Hole</div>
+            <div class='infoSpotNames' id='handicapName'>Handicap</div>
+            <div class='infoSpotNames' id='parName'>Par</div>
+            <div class='infoSpotNames' id='yardName'>Yards</div>`);
             for (let i = 0; i < data.data.holeCount; i++) {
                 $(".holeNumberRow").append(`<div class='holeNumber' id='holeNumber${i}'>${i+1}</div>`);
                 $(".handicapRow").append(`<div class='handicap' id='handicap${i}'>${data.data.holes[i].teeBoxes[difficulty-1].hcp}</div>`);
-                $(".yardRow").append(`<div class='yard' id='yard${i}'>${data.data.holes[i].teeBoxes[difficulty-1].yards}</div>`);
                 $(".parRow").append(`<div class='par' id='par${i}'>${data.data.holes[i].teeBoxes[difficulty-1].par}</div>`);
+                $(".yardRow").append(`<div class='yard' id='yard${i}'>${data.data.holes[i].teeBoxes[difficulty-1].yards}</div>`);
             }
         }
     };
