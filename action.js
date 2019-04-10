@@ -124,10 +124,11 @@ function updateScores() {
         let outScore = 0;
         let inScore = 0;
         let totalScore = 0;
-        for (let h = 0; h < 10; h++) {
+        for (let h = 0; h < 9; h++) {
             outScore += parseFloat($("#hole" + x + h).val());
             inScore += parseFloat($("#hole" + x + (h+9)).val());
         }
+        totalScore = outScore + inScore;
         $("#" + x + "Out").html(outScore);
         $("#" + x + "In").html(inScore);
         $("#" + x + "Total").html(totalScore);
