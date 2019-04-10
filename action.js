@@ -40,17 +40,32 @@ function newGame() {
             <div class='yardRow'></div>
             <div class='handicapRow'></div>
             <div class='parRow'></div>`);
-            $(".totalsCol").html(`<div>`)
+            $(".totalsCol").html(`<div class='totalsName'>Scores</div>
+            <div class='scoreTitlesHolder'>
+                <div id='outHolder' class='scoreTitles'>
+                    <div class='actualTitle'>Out</div>
+                    <div class='totalScoreBoxes outBoxes'></div>
+                </div>
+                <div id='inHolder' class='scoreTitles'>
+                    <div class='actualTitle'>In</div>
+                    <div class='totalScoreBoxes inBoxes'></div>
+                </div>
+                <div id='totalHolder' class='scoreTitles'>
+                    <div class='actualTitle'>Total</div>
+                    <div class='totalScoreBoxes totalBoxes'></div>
+                </div>
+            </div>
+            <div class='scoreHolder></div>`)
             $('.infoSpotNamesHolder').html(`<div class='infoSpotNames' id='holeNumberName'></div>
             <div class='infoSpotNames' id='yardName'>Yards</div>
             <div class='infoSpotNames' id='handicapName'>Handicap</div>
             <div class='infoSpotNames' id='parName'>Par</div>`);
 
             for (let i = 0; i < data.data.holeCount; i++) {
-                $(".holeNumberRow").append(`<div class='holeNumber' id='holeNumber${i}'>${i+1}</div>`);
-                $(".yardRow").append(`<div class='yard' id='yard${i}'>${data.data.holes[i].teeBoxes[difficulty-1].yards}</div>`);
-                $(".handicapRow").append(`<div class='handicap' id='handicap${i}'>${data.data.holes[i].teeBoxes[difficulty-1].hcp}</div>`);
-                $(".parRow").append(`<div class='par' id='par${i}'>${data.data.holes[i].teeBoxes[difficulty-1].par}</div>`);
+                $(".holeNumberRow").append(`<div class='holeNumber' id='holeNumber${i}'>${i + 1}</div>`);
+                $(".yardRow").append(`<div class='yard' id='yard${i}'>${data.data.holes[i].teeBoxes[difficulty - 1].yards}</div>`);
+                $(".handicapRow").append(`<div class='handicap' id='handicap${i}'>${data.data.holes[i].teeBoxes[difficulty - 1].hcp}</div>`);
+                $(".parRow").append(`<div class='par' id='par${i}'>${data.data.holes[i].teeBoxes[difficulty - 1].par}</div>`);
 
             }
         }
@@ -60,11 +75,11 @@ function newGame() {
 }
 
 function checkNameKey(event) {
-    switch(event.keyCode) {
+    switch (event.keyCode) {
         case 13:
-        newPlayer();
-        $("#playerNameInput").focus();
-        break;
+            newPlayer();
+            $("#playerNameInput").focus();
+            break;
     }
 }
 
@@ -87,10 +102,13 @@ function newPlayer() {
                 players.push(nameInput.val());
                 $(".bRight").append(`<div class='holes' id='holes${playerCount}'></div>`);
                 for (let i = 0; i < data.data.holeCount; i++) {
-                    $("#holes" + playerCount).append(`<div id='holeHolder${i}' class='hole'>
-                <input class='holeScore' id='hole${i}' type='number' placeholder='0'>
+                    $("#holes" + playerCount).append(`<div id='holeHolder${nameInput.val()}${i}' class='hole'>
+                <input class='holeScore' id='hole${nameInput.val()}${i}' type='number' value='0'>
                 </div>`);
                 }
+                $(".outBoxes").append(`<div class='box' id='${nameInput.val()}Out'></div>`);
+                $(".inBoxes").append(`<div class='box' id='${nameInput.val()}In'></div>`);
+                $(".totalBoxes").append(`<div class='box' id='${nameInput.val()}Total'></div>`);
                 nameInput.val('');
                 playerCount++;
             }
@@ -98,4 +116,20 @@ function newPlayer() {
     };
     xhttp.open("GET", `https://golf-courses-api.herokuapp.com/courses/${course}`, true);
     xhttp.send();
+}
+
+function updateScores() {
+    for (let i = 0; i < players.length; i++) {
+        x = players[i];
+        let outScore = 0;
+        let inScore = 0;
+        let totalScore = 0;
+        for (let h = 0; h < 10; h++) {
+            outScore += parseFloat($("#hole" + x + h).val());
+            inScore += parseFloat($("#hole" + x + (h+9)).val());
+        }
+        $("#" + x + "Out").html(outScore);
+        $("#" + x + "In").html(inScore);
+        $("#" + x + "Total").html(totalScore);
+    }
 }
