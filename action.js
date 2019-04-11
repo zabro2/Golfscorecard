@@ -103,7 +103,7 @@ function newPlayer() {
                 $(".bRight").append(`<div class='holes' id='holes${playerCount}'></div>`);
                 for (let i = 0; i < data.data.holeCount; i++) {
                     $("#holes" + playerCount).append(`<div id='holeHolder${nameInput.val()}${i}' class='hole'>
-                <input class='holeScore' id='hole${nameInput.val()}${i}' type='number' value='0'>
+                <input class='holeScore' id='hole${nameInput.val()}${i}' type='number' value='0' onchange='updateScores()'>
                 </div>`);
                 }
                 $(".outBoxes").append(`<div class='box' id='${nameInput.val()}Out'></div>`);

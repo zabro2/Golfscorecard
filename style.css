@@ -7,6 +7,16 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    margin-top: 40px;
+    min-width: 1212px;
+}
+
 .top {
     margin-top: 20px;
     display: flex;

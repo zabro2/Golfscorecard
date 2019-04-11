@@ -13,28 +13,36 @@
 </head>
 
 <body>
-    <div class='top'>
-        <div class='nav'>
-            <select id='courseSelect' onchange="updateSelectDifficulty()">
+    <div class='container'>
+        <div class='top'>
+            <div class='nav'>
+                <select id='courseSelect' onchange="updateSelectDifficulty()">
                     <option value="" disabled selected>Course</option>
-            </select>
-            <select id='difficulty'>
-            <option value="" disabled selected>Difficulty</option>
-            </select>
-            <button id='newGamebtn' onclick='newGame()'>New Game</button>
-            <input id='playerNameInput' placeholder='Player Name' onkeypress="checkNameKey(event)">
-            <button id='newPlayerBtn' onclick='newPlayer()'>New Player</button>
+                </select>
+                <select id='difficulty'>
+                    <option value="" disabled selected>Difficulty</option>
+                </select>
+                <button id='newGamebtn' onclick='newGame()'>New Game</button>
+                <input id='playerNameInput' placeholder='Player Name' onkeypress="checkNameKey(event)">
+                <button id='newPlayerBtn' onclick='newPlayer()'>New Player</button>
+            </div>
         </div>
-    </div>
-    <div class='bottom'>
-        <div class='bLeft'>
-            <div class='infoSpotNamesHolder'></div>
-            <div class='names'></div>
+        <div class='bottom'>
+            <div class='bLeft'>
+                <div class='infoSpotNamesHolder'></div>
+                <div class='names'></div>
+            </div>
+            <div class='bRight'>
+                <div class='infoSpot'></div>
+            </div>
+            <div class='totalsCol'></div>
         </div>
-        <div class='bRight'>
-            <div class='infoSpot'></div>
+        <div class='courseInfoSpot'>
+            <div class='courseName'></div>
+            <div class='coursePhone'></div>
+            <div class='courseWebsite'></div>
+            <div class='coursePicture'></div>
         </div>
-        <div class='totalsCol'></div>
     </div>
 </body>
 
