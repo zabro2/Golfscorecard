@@ -1,5 +1,6 @@
 let playerCount = 0;
 let players = []
+var dataStuff;
 
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function () {
@@ -36,6 +37,7 @@ function newGame() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             let data = JSON.parse(xhttp.responseText);
+            dataStuff = JSON.parse(xhttp.responseText);
             $(".infoSpot").html(`<div class='holeNumberRow'></div>
             <div class='yardRow'></div>
             <div class='handicapRow'></div>
@@ -68,6 +70,7 @@ function newGame() {
                 $(".parRow").append(`<div class='par' id='par${i}'>${data.data.holes[i].teeBoxes[difficulty - 1].par}</div>`);
 
             }
+            $(".courseName").html(`${data.data.name}`);
         }
     };
     xhttp.open("GET", `https://golf-courses-api.herokuapp.com/courses/${courseVal}`, true);
@@ -84,38 +87,28 @@ function checkNameKey(event) {
 }
 
 function newPlayer() {
-    let course = $("#courseSelect").val();
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        let nameInput = $("#playerNameInput")
-        if (this.readyState == 4 && this.status == 200) {
-            let data = JSON.parse(xhttp.responseText);
-            console.log(data);
-            if (playerCount >= 4) {
-                alert('Player limit has been reached');
-                nameInput.val('');
-            } else if (players.includes(nameInput.val())) {
-                alert('That name is alredy taken');
-                nameInput.val('');
-            } else {
-                $(".names").append(`<div class='name' id='player${playerCount}'>${nameInput.val()}</div>`);
-                players.push(nameInput.val());
-                $(".bRight").append(`<div class='holes' id='holes${playerCount}'></div>`);
-                for (let i = 0; i < data.data.holeCount; i++) {
-                    $("#holes" + playerCount).append(`<div id='holeHolder${nameInput.val()}${i}' class='hole'>
+    let nameInput = $("#playerNameInput")
+    if (playerCount >= 4) {
+        alert('Player limit has been reached');
+        nameInput.val('');
+    } else if (players.includes(nameInput.val())) {
+        alert('That name is alredy taken');
+        nameInput.val('');
+    } else {
+        $(".names").append(`<div class='name' id='player${playerCount}'>${nameInput.val()}</div>`);
+        players.push(nameInput.val());
+        $(".bRight").append(`<div class='holes' id='holes${playerCount}'></div>`);
+        for (let i = 0; i < dataStuff.data.holeCount; i++) {
+            $("#holes" + playerCount).append(`<div id='holeHolder${nameInput.val()}${i}' class='hole'>
                 <input class='holeScore' id='hole${nameInput.val()}${i}' type='number' value='0' onchange='updateScores()'>
                 </div>`);
-                }
-                $(".outBoxes").append(`<div class='box' id='${nameInput.val()}Out'></div>`);
-                $(".inBoxes").append(`<div class='box' id='${nameInput.val()}In'></div>`);
-                $(".totalBoxes").append(`<div class='box' id='${nameInput.val()}Total'></div>`);
-                nameInput.val('');
-                playerCount++;
-            }
         }
-    };
-    xhttp.open("GET", `https://golf-courses-api.herokuapp.com/courses/${course}`, true);
-    xhttp.send();
+        $(".outBoxes").append(`<div class='box' id='${nameInput.val()}Out'></div>`);
+        $(".inBoxes").append(`<div class='box' id='${nameInput.val()}In'></div>`);
+        $(".totalBoxes").append(`<div class='box' id='${nameInput.val()}Total'></div>`);
+        nameInput.val('');
+        playerCount++;
+    }
 }
 
 function updateScores() {
@@ -126,11 +119,16 @@ function updateScores() {
         let totalScore = 0;
         for (let h = 0; h < 9; h++) {
             outScore += parseFloat($("#hole" + x + h).val());
-            inScore += parseFloat($("#hole" + x + (h+9)).val());
+            inScore += parseFloat($("#hole" + x + (h + 9)).val());
         }
         totalScore = outScore + inScore;
         $("#" + x + "Out").html(outScore);
         $("#" + x + "In").html(inScore);
         $("#" + x + "Total").html(totalScore);
     }
+}
+
+function endGame() {
+    let currentPar = dataStuff.data.par;
+    console.log(currentPar);
 }

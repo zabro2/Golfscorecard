@@ -13,17 +13,21 @@ body {
 }
 
 .container {
-    margin-top: 40px;
+    margin-top: 15px;
     min-width: 1212px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .top {
-    margin-top: 20px;
+    margin: 10px 20px 30px 20px;
     display: flex;
     justify-content: center;
 }
 
 .nav {
+    min-width: 540px;
     width: 50%;
     display: flex;
     justify-content: space-between;
@@ -45,8 +49,16 @@ button {
     text-decoration: none;
 }
 
+.courseInfoSpot {
+    margin: 20px;
+}
+
+.courseName {
+    font-size: 1.8em;
+}
+
 .bottom {
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
 }
 
@@ -72,8 +84,6 @@ button {
     display: flex;
     align-items: center;
 }
-
-.bRight {}
 
 .infoSpot {
     margin: 10px;
