@@ -1,6 +1,7 @@
 let playerCount = 0;
 let players = []
-var dataStuff;
+let dataStuff;
+let currentCoursePar = 0;
 
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function () {
@@ -70,7 +71,13 @@ function newGame() {
                 $(".parRow").append(`<div class='par' id='par${i}'>${data.data.holes[i].teeBoxes[difficulty - 1].par}</div>`);
 
             }
+
             $(".courseName").html(`${data.data.name}`);
+            currentCoursePar = 0;
+            for (let p = 0; p < data.data.holeCount; p ++) {
+                currentCoursePar += data.data.holes[p].teeBoxes[difficulty -1].par;
+            }
+            $(".coursePar").html(`Course Par: ${currentCoursePar}`);
         }
     };
     xhttp.open("GET", `https://golf-courses-api.herokuapp.com/courses/${courseVal}`, true);
@@ -109,6 +116,8 @@ function newPlayer() {
         nameInput.val('');
         playerCount++;
     }
+    let lastPlayer = $("#hole" + (players[players.length-1]) + (dataStuff.data.holeCount -1));
+    lastPlayer.attr('onchange', 'updateScores(); endGame();');
 }
 
 function updateScores() {
@@ -129,6 +138,17 @@ function updateScores() {
 }
 
 function endGame() {
-    let currentPar = dataStuff.data.par;
-    console.log(currentPar);
+    $(".playerFeedbacks").html('');
+    for (let i =0; i < players.length; i ++) {
+        x = players[i];
+        let playerScore = parseFloat($("#" + x + "Total").html());
+        console.log(playerScore);
+        if (playerScore < currentCoursePar) {
+            $(".playerFeedbacks").append(`<div class='actualFeedback'>${players[i]}, Excelent job, you are under par!</div>`);
+        } else if (playerScore == currentCoursePar) {
+            $(".playerFeedbacks").append(`<div class='actualFeedback'>${players[i]}, Good job, you hit par!</div>`);
+        } else {
+            $(".playerFeedbacks").append(`<div class='actualFeedback'>${players[i]}, Better luck next time, you are over par!</div>`);
+        }
+    }
 }
