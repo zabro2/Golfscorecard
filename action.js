@@ -43,6 +43,7 @@ function newGame() {
             <div class='yardRow'></div>
             <div class='handicapRow'></div>
             <div class='parRow'></div>`);
+            $(".infoSpot").css("background-color", "yellow");
             $(".totalsCol").html(`<div class='totalsName'>Scores</div>
             <div class='scoreTitlesHolder'>
                 <div id='outHolder' class='scoreTitles'>
@@ -58,7 +59,8 @@ function newGame() {
                     <div class='totalScoreBoxes totalBoxes'></div>
                 </div>
             </div>
-            <div class='scoreHolder></div>`)
+            <div class='scoreHolder></div>`);
+            $(".totalsCol").css('background-color', '#ff0000');
             $('.infoSpotNamesHolder').html(`<div class='infoSpotNames' id='holeNumberName'></div>
             <div class='infoSpotNames' id='yardName'>Yards</div>
             <div class='infoSpotNames' id='handicapName'>Handicap</div>
@@ -104,7 +106,7 @@ function newPlayer() {
     } else {
         $(".names").append(`<div class='name' id='player${playerCount}'>${nameInput.val()}</div>`);
         players.push(nameInput.val());
-        $(".bRight").append(`<div class='holes' id='holes${playerCount}'></div>`);
+        $(".playerHoleSpot").append(`<div class='holes' id='holes${playerCount}'></div>`);
         for (let i = 0; i < dataStuff.data.holeCount; i++) {
             $("#holes" + playerCount).append(`<div id='holeHolder${nameInput.val()}${i}' class='hole'>
                 <input class='holeScore' id='hole${nameInput.val()}${i}' type='number' value='0' onchange='updateScores()'>
